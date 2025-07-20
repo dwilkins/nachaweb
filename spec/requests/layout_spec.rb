@@ -4,13 +4,13 @@ RSpec.describe "Layout", type: :request do
   context "when not authenticated" do
     it "does not display the sidebar" do
       get root_path
-      expect(response).to be_successful
+      expect(response).to redirect_to(new_session_path)
       assert_select "aside", count: 0
     end
   end
 
   context "when authenticated" do
-    let(:user) { User.create!(email_address: "test-user@example.com", password: "password") }
+    let!(:user) { User.create!(email_address: "test-user@example.com", password: "password") }
 
     before do
       post session_path, params: { user: { email_address: user.email_address, password: "password" } }
