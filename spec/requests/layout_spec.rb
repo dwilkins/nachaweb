@@ -13,7 +13,7 @@ RSpec.describe "Layout", type: :request do
     let(:user) { User.create!(email_address: "test-user@example.com", password: "password") }
 
     before do
-      post session_path, params: { user: { email_address: user.email_address, password: "password" } }
+      post session_path, params: { email_address: user.email_address, password: "password" }
     end
 
     it "displays the sidebar with navigation links on the root path" do
