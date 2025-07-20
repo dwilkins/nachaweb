@@ -2,7 +2,12 @@
 
 ## Implementation Roadmap
 
-This roadmap breaks down the development of the Nacha Web application into logical phases. The goal is to build the application incrementally, starting with the core foundation and layering features on top.
+This roadmap breaks down the development of the Nacha Web application into
+logical phases. The goal is to build the application incrementally, starting
+with the core foundation and layering features on top.
+
+When implementing requirements, always create tests for new public methods and classes
+Coding conventions for this project are defined in CONVENTIONS.md
 
 ### Phase 1: Core Application Setup, CI/CD & User Management
 *   [X] **1.1.** Initialize the Rails application with PostgreSQL, RSpec, and Tailwind CSS.
@@ -11,10 +16,11 @@ This roadmap breaks down the development of the Nacha Web application into logic
 *   [X] **1.4.** Implement Role-Based Access Control (RBAC) on the `User` model.
 
 ### Phase 2: Foundational Models & API
-*   [ ] **2.1.** Create the `ApiKey` model and a basic web interface for users to manage their keys.
-*   [ ] **2.2.** Create the `AchFile` model with all specified attributes.
-*   [ ] **2.3.** Build the initial RESTful API endpoints for parsing a single record and a full file (`/api/v1/parse/record`, `/api/v1/parse/file`).
-*   [ ] **2.4.** Implement API key authentication for the API endpoints.
+*   [X] **2.1.** Create the `ApiKey` model and a basic web interface for users to manage their keys.
+*   [ ] **2.2.** Create a sidebar with links to pages the logged in user can navigate to.
+*   [ ] **2.3.** Create the `AchFile` model with all specified attributes.
+*   [ ] **2.4.** Build the initial RESTful API endpoints for parsing a single record and a full file (`/api/v1/parse/record`, `/api/v1/parse/file`).
+*   [ ] **2.5.** Implement API key authentication for the API endpoints.
 
 ### Phase 3: Web Interface - Core ACH Processing
 *   [ ] **3.1.** Implement the web UI for uploading ACH files, pasting text, or providing a URL.

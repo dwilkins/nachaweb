@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_20_221300) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_21_120001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pgcrypto"
+
+  create_table "ach_files", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.string "filename"
+    t.integer "status", default: 0, null: false
+    t.integer "storage_type", default: 0, null: false
+    t.jsonb "parsed_data"
+    t.text "error_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_ach_files_on_user_id"
+    t.index ["uuid"], name: "index_ach_files_on_uuid", unique: true
+  end
 
   create_table "api_keys", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -44,6 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_221300) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "ach_files", "users"
   add_foreign_key "api_keys", "users"
   add_foreign_key "sessions", "users"
 end

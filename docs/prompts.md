@@ -75,3 +75,12 @@ Help me come up a Product Requirements Document in docs/PRD.md that describes
 this application in better detail.  PRD.md should contain enough information for
 a competent coder or AI agent to succeed in implemented each listed requirement.
 
+
+
+
+OK, Item 2.1 is complete.  I've updated doc/PRD.md and CONVENTIONS.md, so be
+sure to review them for updates.  I've added a new item for 2.2.  Let's get to
+work on Phase 2, item 2.2 - Create a sidebar with links to pages the logged in
+user can navigate to.
+
+Be sure to write or update specs for any public methods or classes.

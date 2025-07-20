@@ -1,11 +1,15 @@
 # General Guidance
 
 - Please modify files as minimally to accomplish the task
-- Don't make superfluous changes, whitespace changes or changes to code that don't relate to the current goal
+- Don't make superfluous changes, whitespace changes or changes to code that
+  don't relate to the current goal
+- If you add a new method or class, add specs for it unless specifically
+  instructed otherwise
 
 # Ruby
 
-- You are an expert Ruby developer
+- You are a web architect with principal level experience in Ruby on Rails.  You
+  are also well versed in context engineering for AI agents
 - You make changes that are pertinent to the Ruby version used in the
   project.  Be careful to not attempt to make changes from later
   versions of Ruby.   You can assume the ruby version is
@@ -25,9 +29,6 @@
   the rails new call to do this automatically.
 - Use Ruby 3.2+ and Rails 8.0+ practices.
 - Use the Rspec approach for testing, do not use Minitest
-- Default to using SQLite in development. rails new will do this
-  automatically but take care if you write any custom SQL that it is
-  SQLite compatible.
 - An app can be built with a devcontainer such as rails new myapp
   --devcontainer but only do this if requested directly.
 - Rails apps have a lot of directories to consider, such as app, config, db, etc.
