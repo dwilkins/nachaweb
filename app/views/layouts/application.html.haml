@@ -19,6 +19,7 @@
     %header.absolute.top-0.right-0.p-4
       - if Current.user
         %span.text-gray-700= Current.user.email_address
+        = link_to "API Keys", api_keys_path, class: "ml-4 text-blue-500 hover:text-blue-700"
         = link_to "Sign Out", session_path, data: { turbo_method: :delete }, class: "ml-2 text-blue-500 hover:text-blue-700"
     %main.container.mx-auto.mt-28.px-5
       = yield
