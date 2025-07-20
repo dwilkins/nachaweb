@@ -92,9 +92,10 @@ RSpec.describe "ApiKeys", type: :request do
       it "does not allow deleting another user's key" do
         another_user = User.create!(email_address: "another@example.com", password: "password")
         another_key = another_user.api_keys.create!(description: "Another key")
-        expect do
-          delete api_key_path(another_key)
-        end.to raise_error(ActiveRecord::RecordNotFound)
+
+        expect { delete api_key_path(another_key) }.not_to change(ApiKey, :count)
+
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

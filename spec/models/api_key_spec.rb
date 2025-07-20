@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ApiKey, type: :model do
-  let(:user) { users(:one) }
+  let(:user) { User.create!(email_address: "test@example.com", password: "password") }
 
   it "is valid with a user and description" do
     api_key = described_class.new(user:, description: "Test Key")
