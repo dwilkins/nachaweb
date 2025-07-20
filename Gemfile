@@ -56,6 +56,7 @@ end
 
 gem 'haml-rails'
 gem "nacha", ">= 0.1.14"
+gem "tailwindcss-rails"
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
