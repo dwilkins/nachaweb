@@ -1,5 +1,6 @@
 # Creates the ach_files table to store ACH file data.
 class CreateAchFiles < ActiveRecord::Migration[8.0]
+  # :reek:FeatureEnvy, :TooManyStatements, :UncommunicativeVariableName
   def change
     create_table :ach_files do |t|
       t.references :user, null: false, foreign_key: true
