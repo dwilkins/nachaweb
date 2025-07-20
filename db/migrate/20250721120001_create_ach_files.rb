@@ -1,3 +1,4 @@
+# Creates the ach_files table to store ACH file data.
 class CreateAchFiles < ActiveRecord::Migration[8.0]
   def change
     create_table :ach_files do |t|

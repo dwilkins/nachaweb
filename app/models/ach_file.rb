@@ -1,3 +1,4 @@
+# Represents a single ACH file, storing its data and metadata.
 class AchFile < ApplicationRecord
   belongs_to :user
 

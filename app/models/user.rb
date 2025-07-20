@@ -1,3 +1,4 @@
+# Represents a user of the application.
 class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
@@ -8,7 +9,7 @@ class User < ApplicationRecord
 
   after_initialize :set_default_role, if: :new_record?
 
-  normalizes :email_address, with: ->(e) { e.strip.downcase }
+  normalizes :email_address, with: ->(email) { email.strip.downcase }
 
   private
 
