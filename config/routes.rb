@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resource :session, only: %i[ new create destroy ]
+  resources :passwords, param: :token
+  resources :users, only: %i[ new create ]
   get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

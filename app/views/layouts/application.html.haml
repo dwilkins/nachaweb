@@ -12,8 +12,13 @@
     %link{href: "/icon.png", rel: "icon", type: "image/png"}/
     %link{href: "/icon.svg", rel: "icon", type: "image/svg+xml"}/
     %link{href: "/icon.png", rel: "apple-touch-icon"}/
+    = stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
   %body
-    %main.container.mx-auto.mt-28.px-5.flex
+    %header.absolute.top-0.right-0.p-4
+      - if Current.user
+        %span.text-gray-700= Current.user.email_address
+        = link_to "Sign Out", session_path, data: { turbo_method: :delete }, class: "ml-2 text-blue-500 hover:text-blue-700"
+    %main.container.mx-auto.mt-28.px-5
       = yield

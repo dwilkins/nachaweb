@@ -5,10 +5,10 @@
 This roadmap breaks down the development of the Nacha Web application into logical phases. The goal is to build the application incrementally, starting with the core foundation and layering features on top.
 
 ### Phase 1: Core Application Setup, CI/CD & User Management
-*   [ ] **1.1.** Initialize the Rails application with PostgreSQL, RSpec, and Tailwind CSS.
-*   [ ] **1.2.** Set up a robust CI/CD pipeline using GitHub Actions to automatically run tests, `rubocop`, and `brakeman` on every push to the main branch.
-*   [ ] **1.3.** Set up User Authentication (`bin/rails generate authentication`).
-*   [ ] **1.4.** Implement Role-Based Access Control (RBAC) on the `User` model.
+*   [X] **1.1.** Initialize the Rails application with PostgreSQL, RSpec, and Tailwind CSS.
+*   [X] **1.2.** Set up a robust CI/CD pipeline using GitHub Actions to automatically run tests, `rubocop`, and `brakeman` on every push to the main branch.
+*   [X] **1.3.** Set up User Authentication (`bin/rails generate authentication`). and user signup
+*   [X] **1.4.** Implement Role-Based Access Control (RBAC) on the `User` model.
 
 ### Phase 2: Foundational Models & API
 *   [ ] **2.1.** Create the `ApiKey` model and a basic web interface for users to manage their keys.
