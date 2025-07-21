@@ -17,10 +17,12 @@ Coding conventions for this project are defined in CONVENTIONS.md
 
 ### Phase 2: Foundational Models & API
 *   [X] **2.1.** Create the `ApiKey` model and a basic web interface for users to manage their keys.
-*   [ ] **2.2.** Create a sidebar with links to pages the logged in user can navigate to.
-*   [ ] **2.3.** Create the `AchFile` model with all specified attributes.
-*   [ ] **2.4.** Build the initial RESTful API endpoints for parsing a single record and a full file (`/api/v1/parse/record`, `/api/v1/parse/file`).
-*   [ ] **2.5.** Implement API key authentication for the API endpoints.
+*   [X] **2.2.** Create a sidebar with links to pages the logged in user can navigate to.
+*   [ ] **2.3.** Create the `AchInputFile` model with all specified attributes.
+*   [ ] **2.4.** Create the `AchRecord` model with all specified attributes.
+*   [ ] **2.5.** Create the `AchFile` model with all specified attributes.
+*   [ ] **2.6.** Build the initial RESTful API endpoints for parsing a single record and a full file (`/api/v1/parse/record`, `/api/v1/parse/file`).
+*   [ ] **2.7.** Implement API key authentication for the API endpoints.
 
 ### Phase 3: Web Interface - Core ACH Processing
 *   [ ] **3.1.** Implement the web UI for uploading ACH files, pasting text, or providing a URL.
@@ -105,23 +107,52 @@ Nacha Web is a Ruby on Rails application designed to provide a comprehensive web
   - [ ] `storage_type`: An enum (`temporary`, `permanent`).
   - [ ] `parsed_data`: A `jsonb` column to store the full JSON representation of the parsed ACH file.
   - [ ] `error_message`: To store any errors that occurred during parsing.
-- [ ] **Database:** PostgreSQL is recommended to take advantage of the `jsonb` data type for efficient querying of the `parsed_data` column.
+
+- [ ] **`AchInputFile` Model:** This will be a storage mechanism for input files.
+  - [ ] `ach_file_id`: The AchFile object that is associated with this AchInputFile
+  - [ ] `name`: The filename
+  - [ ] `format`: One of ach, json or markdown, signifying the type of data in the input
+  - [ ] `modality`: The mechanism by which the data was received.  Either
+        "string", "fileupload" or "url"
+  - [ ] `source`: The string in the case of string modality, The full filename
+        in the case of "fileupload" modality, and the full URL in the case of
+        "url" moality
+  - [ ] `name`: The filename
+
+- [ ] ** `AchRecord` Model:** This is a single record from an AchInputFile
+  - [ ] `ach_file_id`: The AchFile object that is associated with this AchRecord
+  - [ ] `ach_record_name`: The name of the ach record.  From Nacha::Record#record_type
+  - [ ] `parsed_data`: A `jsonb` column to store the full JSON representation of
+        the parsed ACH record.
+
+- [ ] **Database:** PostgreSQL is recommended to take advantage of the `jsonb`
+      data type for efficient querying of the `parsed_data` column.
 
 ### 3.4. ACH File Editing
 
-- [ ] **Functionality:** Users can edit the contents of their stored ACH files via the web interface.
+- [ ] **Functionality:** Users can edit the contents of their stored ACH files
+      via the web interface.
 - [ ] **Versioning:**
-  - [ ] All changes to an `AchFile` record (specifically the `parsed_data` field) must be versioned.
-  - [ ] The `paper_trail` gem is recommended for this purpose. It will automatically track changes, store previous versions, and record the `user_id` of the user who made the change.
-- [ ] **UI:** The interface will provide a user-friendly way to edit the ACH data, potentially through a structured form or an embedded JSON editor.
+  - [ ] All changes to an `AchFile` record (specifically the `parsed_data`
+        field) must be versioned.
+  - [ ] The `paper_trail` gem is recommended for this purpose. It will
+        automatically track changes, store previous versions, and record the
+        `user_id` of the user who made the change.
+- [ ] **UI:** The interface will provide a user-friendly way to edit the ACH
+      data, potentially through a structured form or an embedded JSON editor.
 
 ### 3.5. ACH File Creation
 
-- [ ] **Functionality:** A step-by-step interface for building a valid ACH file from scratch.
+- [ ] **Functionality:** A step-by-step interface for building a valid ACH file
+      from scratch.
 - [ ] **Implementation:**
-  - [ ] The UI will guide the user through creating a file header, one or more batches, and the entries within each batch.
-  - [ ] To ensure correctness, the interface will dynamically generate input forms based on the record types supported by the `nacha` gem.
-  - [ ] It will call `Nacha.ach_record_types` to get the specifications for each record type (fields, data types, sizes) and use this information to build the forms and apply client-side or server-side validations.
+  - [ ] The UI will guide the user through creating a file header, one or more
+        batches, and the entries within each batch.
+  - [ ] To ensure correctness, the interface will dynamically generate input
+        forms based on the record types supported by the `nacha` gem.
+  - [ ] It will call `Nacha.ach_record_types` to get the specifications for each
+        record type (fields, data types, sizes) and use this information to
+        build the forms and apply client-side or server-side validations.
 
 ### 3.6. Search
 
