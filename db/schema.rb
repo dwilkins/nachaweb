@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_21_120002) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_21_120003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -38,6 +38,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_120002) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ach_file_id"], name: "index_ach_input_files_on_ach_file_id"
+  end
+
+  create_table "ach_records", force: :cascade do |t|
+    t.bigint "ach_file_id", null: false
+    t.string "ach_record_name"
+    t.jsonb "parsed_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ach_file_id"], name: "index_ach_records_on_ach_file_id"
   end
 
   create_table "api_keys", force: :cascade do |t|
@@ -72,6 +81,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_120002) do
 
   add_foreign_key "ach_files", "users"
   add_foreign_key "ach_input_files", "ach_files"
+  add_foreign_key "ach_records", "ach_files"
   add_foreign_key "api_keys", "users"
   add_foreign_key "sessions", "users"
 end

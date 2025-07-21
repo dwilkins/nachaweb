@@ -7,7 +7,7 @@ logical phases. The goal is to build the application incrementally, starting
 with the core foundation and layering features on top.
 
 When implementing requirements, always create tests for new public methods and classes
-Coding conventions for this project are defined in CONVENTIONS.md
+Coding conventions for this project are defined in ../CONVENTIONS.md
 
 ### Phase 1: Core Application Setup, CI/CD & User Management
 *   [X] **1.1.** Initialize the Rails application with PostgreSQL, RSpec, and Tailwind CSS.
@@ -19,7 +19,7 @@ Coding conventions for this project are defined in CONVENTIONS.md
 *   [X] **2.1.** Create the `ApiKey` model and a basic web interface for users to manage their keys.
 *   [X] **2.2.** Create a sidebar with links to pages the logged in user can navigate to.
 *   [X] **2.3.** Create the `AchInputFile` model with all specified attributes.
-*   [ ] **2.4.** Create the `AchRecord` model with all specified attributes.
+*   [X] **2.4.** Create the `AchRecord` model with all specified attributes.
 *   [ ] **2.5.** Create the `AchFile` model with all specified attributes.
 *   [ ] **2.6.** Build the initial RESTful API endpoints for parsing a single record and a full file (`/api/v1/parse/record`, `/api/v1/parse/file`).
 *   [ ] **2.7.** Implement API key authentication for the API endpoints.
