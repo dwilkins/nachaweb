@@ -99,3 +99,27 @@ You were about to change the enum definition and create a syntax error.  The enu
   enum :status, { parsing: 0, completed: 1, failed: 2 }                                             │
   enum :storage_type, { temporary: 0, permanent: 1 }
 ```
+
+```
+NameError in AchFilesController#create
+undefined local variable or method `current_user' for #<AchFilesController:0x00000000012fc0>
+Extracted source (around line #7):
+5
+6
+7
+8
+9
+10
+
+
+  def create
+    @ach_file = current_user.ach_files.build
+
+    if @ach_file.save
+      if ach_file_params[:file].present?
+
+Rails.root: /home/dwilkins/source/mystuff/nachaweb
+
+Application Trace | Framework Trace | Full Trace
+app/controllers/ach_files_controller.rb:7:in `create'
+```

@@ -3,7 +3,8 @@ class AchFile < ApplicationRecord
   attr_accessor :file, :pasted_text, :url
 
   belongs_to :user
-  has_one :ach_input_file, dependent: :destroy
+  has_many :ach_input_files, dependent: :destroy
+  accepts_nested_attributes_for :ach_input_files
   has_many :ach_records, dependent: :destroy
 
   enum :status, { parsing: 0, completed: 1, failed: 2 }
