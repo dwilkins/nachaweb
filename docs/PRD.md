@@ -21,8 +21,8 @@ Coding conventions for this project are defined in ../CONVENTIONS.md
 *   [X] **2.3.** Create the `AchInputFile` model with all specified attributes.
 *   [X] **2.4.** Create the `AchRecord` model with all specified attributes.
 *   [X] **2.5.** Create the `AchFile` model with all specified attributes.
-*   [ ] **2.6.** Build the initial RESTful API endpoints for parsing a single record and a full file (`/api/v1/parse/record`, `/api/v1/parse/file`).
-*   [ ] **2.7.** Implement API key authentication for the API endpoints.
+*   [X] **2.6.** Build the initial RESTful API endpoints for parsing a single record and a full file (`/api/v1/parse/record`, `/api/v1/parse/file`).
+*   [X] **2.7.** Implement API key authentication for the API endpoints.
 
 ### Phase 3: Web Interface - Core ACH Processing
 *   [ ] **3.1.** Implement the web UI for uploading ACH files, pasting text, or providing a URL.

@@ -3,12 +3,13 @@ require 'nacha'
 module Api
   module V1
     class ParseController < ActionController::API
+      include Api::V1::Authentication
       def record
         raw_record = request.body.read
         records = Nacha.parse(raw_record)
 
         if records.any? && records.first.is_a?(Nacha::Record::Base)
-          render json: record_to_h(records.first) # records[1] is the actual record
+          render json: record_to_h(records.first)
         else
           render json: { error: "Invalid ACH record" }, status: :unprocessable_entity
         end
