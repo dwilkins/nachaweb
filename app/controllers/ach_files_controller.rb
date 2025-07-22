@@ -8,7 +8,12 @@ class AchFilesController < ApplicationController
   def create
     input_attributes = {}
     if ach_file_params[:file_data].present?
-      input_attributes = { modality: :file_upload, file_data: ach_file_params[:file_data] }
+      input_attributes = {
+        modality: :file_upload,
+        file_data: ach_file_params[:file_data],
+        source: ach_file_params[:file_data].original_filename,
+        name: ach_file_params[:file_data].original_filename
+      }
     elsif ach_file_params[:pasted_text].present?
       input_attributes = { modality: :pasted_text, source: ach_file_params[:pasted_text] }
     elsif ach_file_params[:url].present?
