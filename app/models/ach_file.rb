@@ -1,7 +1,5 @@
 # Represents a single ACH file, storing its data and metadata.
 class AchFile < ApplicationRecord
-  attr_accessor :file, :pasted_text, :url
-
   belongs_to :user
   has_many :ach_input_files, dependent: :destroy
   accepts_nested_attributes_for :ach_input_files

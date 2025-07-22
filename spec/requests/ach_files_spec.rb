@@ -33,8 +33,9 @@ RSpec.describe "AchFiles", type: :request do
 
       context "with valid parameters" do
         it "creates a new AchFile and redirects to the show page" do
-          ach_file_params = { ach_file: { pasted_text: "some ach data" } }
-          post ach_files_path, params: ach_file_params
+          file = fixture_file_upload('test_ach.txt', 'text/plain')
+          ach_file_params = { ach_file: { file_data: file } }
+          expect { post ach_files_path, params: ach_file_params }.to change(AchFile, :count).by(1)
           expect(response).to redirect_to(ach_file_path(AchFile.last))
         end
       end
@@ -42,7 +43,7 @@ RSpec.describe "AchFiles", type: :request do
       context "with invalid parameters" do
         it "does not create a new AchFile and re-renders the new template" do
           ach_file_params = { ach_file: { pasted_text: "" } }
-          post ach_files_path, params: ach_file_params
+          expect { post ach_files_path, params: ach_file_params }.not_to change(AchFile, :count)
           expect(response).to render_template(:new)
         end
       end

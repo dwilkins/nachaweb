@@ -7,8 +7,8 @@ class AchFilesController < ApplicationController
 
   def create
     input_attributes = {}
-    if ach_file_params[:file].present?
-      input_attributes = { modality: :file_upload, source: ach_file_params[:file].read }
+    if ach_file_params[:file_data].present?
+      input_attributes = { modality: :file_upload, file_data: ach_file_params[:file_data] }
     elsif ach_file_params[:pasted_text].present?
       input_attributes = { modality: :pasted_text, source: ach_file_params[:pasted_text] }
     elsif ach_file_params[:url].present?
@@ -31,6 +31,6 @@ class AchFilesController < ApplicationController
   private
 
   def ach_file_params
-    params.require(:ach_file).permit(:file, :pasted_text, :url, ach_input_files_attributes: [:modality, :source])
+    params.require(:ach_file).permit(:pasted_text, :url, :file_data, ach_input_files_attributes: [:modality, :source, :file_data])
   end
 end

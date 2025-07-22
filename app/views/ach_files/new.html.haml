@@ -1,9 +1,9 @@
 %h1 Parse ACH File
 
-= form_with(model: @ach_file, url: ach_files_path) do |form|
+= form_with(model: @ach_file, url: ach_files_path, local: true) do |form|
   .mb-4
-    = form.label :file, "Upload File", class: "block text-gray-700 text-sm font-bold mb-2"
-    = form.file_field :file, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    = form.label :file_data, "Upload File", class: "block text-gray-700 text-sm font-bold mb-2"
+    = form.file_field :file_data, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 
   .mb-4
     = form.label :pasted_text, "Or Paste Text", class: "block text-gray-700 text-sm font-bold mb-2"
