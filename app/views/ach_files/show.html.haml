@@ -1,0 +1,21 @@
+%h1 ACH File Details
+
+%p
+  %strong Filename:
+  = @ach_file.filename
+
+%p
+  %strong Status:
+  = @ach_file.status
+
+%p
+  %strong Storage Type:
+  = @ach_file.storage_type
+
+%p
+  %strong Parsed Data:
+  %pre= JSON.pretty_generate(@ach_file.parsed_data)
+
+%p
+  %strong Error Message:
+  = @ach_file.error_message

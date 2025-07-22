@@ -93,3 +93,9 @@ code in this project are in the file @CONVENTIONS.md.  I am following a phased
 implmentation approach following the project requirement document at @docs/PRD.md
 
 I've just completed item 2.5 and am ready to implement item 2.6
+
+You were about to change the enum definition and create a syntax error.  The enum blocks should have the following syntax:
+```ruby
+  enum :status, { parsing: 0, completed: 1, failed: 2 }                                             │
+  enum :storage_type, { temporary: 0, permanent: 1 }
+```

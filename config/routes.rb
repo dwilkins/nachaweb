@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   resources :users, only: %i[ new create ]
   resources :api_keys, only: %i[index new create destroy]
+  resources :ach_files, only: %i[new create show index]
   get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

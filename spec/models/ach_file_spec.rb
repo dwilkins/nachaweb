@@ -17,13 +17,13 @@ RSpec.describe AchFile, type: :model do
   it "has a default status of 'parsing'" do
     ach_file = described_class.new(user:)
     expect(ach_file.status).to eq("parsing")
-    expect(ach_file.status_parsing?).to be true
+    expect(ach_file.parsing?).to be true
   end
 
   it "has a default storage_type of 'temporary'" do
     ach_file = described_class.new(user:)
     expect(ach_file.storage_type).to eq("temporary")
-    expect(ach_file.storage_type_temporary?).to be true
+    expect(ach_file.temporary?).to be true
   end
 
   it "generates a uuid on creation" do
