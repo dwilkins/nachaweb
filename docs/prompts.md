@@ -84,3 +84,12 @@ work on Phase 2, item 2.2 - Create a sidebar with links to pages the logged in
 user can navigate to.
 
 Be sure to write or update specs for any public methods or classes.
+
+
+
+You are a web architect with principal level experience in Ruby on Rails.  You
+are also well versed in context engineering for AI agents.  The guildlines for
+code in this project are in the file @CONVENTIONS.md.  I am following a phased
+implmentation approach following the project requirement document at @docs/PRD.md
+
+I've just completed item 2.5 and am ready to implement item 2.6

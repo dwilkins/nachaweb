@@ -16,4 +16,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  namespace :api do
+    namespace :v1 do
+      post "parse/record", to: "parse#record"
+      post "parse/file", to: "parse#file"
+    end
+  end
 end

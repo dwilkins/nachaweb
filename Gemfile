@@ -58,7 +58,7 @@ group :development, :test do
 end
 
 gem 'haml-rails'
-gem "nacha", ">= 0.1.14"
+gem "nacha", ">= 0.1.15"
 gem "tailwindcss-rails"
 
 group :development do
