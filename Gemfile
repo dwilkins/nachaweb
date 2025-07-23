@@ -27,6 +27,8 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
+gem "foreman"
+gem "mission_control-jobs"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -58,7 +60,8 @@ group :development, :test do
 end
 
 gem 'haml-rails'
-gem "nacha", ">= 0.1.15"
+gem "nacha", ">= 0.1.16"
+# gem "nacha", path: "../nacha"
 gem "tailwindcss-rails"
 
 group :development do

@@ -23,6 +23,7 @@ class AchFilesController < ApplicationController
     @ach_file = Current.user.ach_files.build(ach_input_files_attributes: [input_attributes])
 
     if @ach_file.save
+      AchParsingJob.perform_later(@ach_file)
       redirect_to @ach_file, notice: "ACH file was successfully created."
     else
       render :new

@@ -42,6 +42,8 @@ Rails.application.configure do
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+  config.solid_queue.logger = ActiveSupport::Logger.new(STDOUT)
+  config.colorize_logging = false
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
