@@ -13,7 +13,7 @@ module Api
         api_key = request.headers["Authorization"].to_s.remove("Bearer ")
         @current_api_key = ApiKey.find_by(token: api_key)
 
-        unless @current_api_key
+        unless @current_api_key&.active?
           render json: { error: "Invalid API key" }, status: :unauthorized
         end
       end

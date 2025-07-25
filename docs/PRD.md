@@ -9,6 +9,12 @@ with the core foundation and layering features on top.
 When implementing requirements, always create tests for new public methods and classes
 Coding conventions for this project are defined in ../CONVENTIONS.md
 
+Once each Phase is completed, don't start on the next phase without performing a
+review of the previous work
+
+It's very important to run the tests and linters after each change to catch any
+budding problems.
+
 ### Phase 1: Core Application Setup, CI/CD & User Management
 *   [X] **1.1.** Initialize the Rails application with PostgreSQL, RSpec, and Tailwind CSS.
 *   [X] **1.2.** Set up a robust CI/CD pipeline using GitHub Actions to automatically run tests, `rubocop`, and `brakeman` on every push to the main branch.
@@ -28,25 +34,52 @@ Coding conventions for this project are defined in ../CONVENTIONS.md
 *   [X] **3.1.** Implement the web UI for uploading ACH files, pasting text, or providing a URL.
 *   [X] **3.2.** Set up Active Storage for file uploads.
 *   [X] **3.3.** Create the `AchParsingJob` and integrate it with Solid Queue to handle asynchronous parsing.
-*   [ ] **3.4.** Implement Action Cable / Solid Cable to provide real-time notifications to the user about the parsing status.
-*   [ ] **3.5.** Implement the temporary file storage logic and the `CleanupTemporaryFilesJob`.
 
-### Phase 4: Advanced Web Features
-*   [ ] **4.1.** Implement the JSON to ACH/Markdown conversion feature, including the `JsonToAchJob`.
-*   [ ] **4.2.** Build the web interface for creating new ACH files from scratch, using `Nacha.ach_record_types` to dynamically build forms.
-*   [ ] **4.3.** Implement the ACH file editing interface.
-*   [ ] **4.4.** Integrate the `paper_trail` gem to provide version history for `AchFile` edits.
+### Phase 4: Refinements & Enhancements
+*   [ ] **4.1.** Ensure API Parsing Endpoints are Implemented and Tested.
+    * The PRD specifies /api/v1/parse/record and /api/v1/parse/file. It's
+      crucial to verify that these API endpoints have been implemented and are
+      correctly routed to handle parsing requests.
+*   [ ] **4.2.** Implement and Enforce API Key Authentication for API Endpoints.
+    * Assuming the API parsing endpoints exist, it's critical to confirm that
+      API key authentication is properly applied and enforced for all API
+      access, as this is a security-sensitive area.
+*   [ ] **4.3.** Implement Robust HTTP Client for URL Fetching in `AchParsingJob`.
+    * The current URI.open in AchParsingJob for URL fetching is basic.  For
+      production readiness, consider replacing it with a more robust HTTP client
+      (e.g., HTTParty, Faraday) to handle network errors, timeouts, and
+      potentially large file streaming more effectively.
+*   [ ] **4.4.** Implement `AchInputFile#format` Population and Usage.
+    * The PRD defines a format attribute (ach, json, markdown) for
+      AchInputFile. It's important to ensure this attribute is correctly
+      populated and utilized based on the input data's format.
+*   [ ] **4.5.** Implement Granular Error Handling in `AchParsingJob`.
+    * While AchParsingJob has a general error rescue, refining it to catch
+      specific exceptions (e.g., Nacha parsing errors, network errors for URLs)
+      would allow for more precise error logging and user feedback.
+*   [ ] **4.6.** Review and Enforce Role-Based Access Control (RBAC).
+    * Although the User model has a role attribute, a review is needed to
+      confirm that authorization logic is consistently applied across
+      controllers and views to restrict access based on user roles.
 
-### Phase 5: API Enhancements & Webhooks
-*   [ ] **5.1.** Implement API rate limiting using the `rack-attack` gem.
-*   [ ] **5.2.** Create the `WebhookEndpoint` model and the UI for users to manage their webhooks.
-*   [ ] **5.3.** Implement the `WebhookDispatchJob` for sending webhook notifications.
-*   [ ] **5.4.** Add support for both signed and encrypted webhook payloads.
+### Phase 5: Advanced Web Features
+*   [ ] **5.1.** Implement Action Cable / Solid Cable to provide real-time notifications to the user about the parsing status.
+*   [ ] **5.2.** Implement the temporary file storage logic and the `CleanupTemporaryFilesJob`.
+*   [ ] **5.3.** Implement the JSON to ACH/Markdown conversion feature, including the `JsonToAchJob`.
+*   [ ] **5.4.** Build the web interface for creating new ACH files from scratch, using `Nacha.ach_record_types` to dynamically build forms.
+*   [ ] **5.5.** Implement the ACH file editing interface.
+*   [ ] **5.6.** Integrate the `paper_trail` gem to provide version history for `AchFile` edits.
 
-### Phase 6: Search & Deployment
-*   [ ] **6.1.** Integrate Elasticsearch and the `searchkick` gem with the `AchFile` model.
-*   [ ] **6.2.** Build the search interface in the web application.
-*   [ ] **6.3.** Configure the application for deployment using Kamal and Docker.
+### Phase 6: API Enhancements & Webhooks
+*   [ ] **6.1.** Implement API rate limiting using the `rack-attack` gem.
+*   [ ] **6.2.** Create the `WebhookEndpoint` model and the UI for users to manage their webhooks.
+*   [ ] **6.3.** Implement the `WebhookDispatchJob` for sending webhook notifications.
+*   [ ] **6.4.** Add support for both signed and encrypted webhook payloads.
+
+### Phase 7: Search & Deployment
+*   [ ] **7.1.** Integrate Elasticsearch and the `searchkick` gem with the `AchFile` model.
+*   [ ] **7.2.** Build the search interface in the web application.
+*   [ ] **7.3.** Configure the application for deployment using Kamal and Docker.
 
 ---
 

@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'nacha'
 
 RSpec.describe AchParsingJob, type: :job do
   include ActiveJob::TestHelper
@@ -63,6 +64,7 @@ RSpec.describe AchParsingJob, type: :job do
 
       it "parses the text, updates ach_file status, and creates ach_records" do
         perform_enqueued_jobs { AchParsingJob.perform_later(ach_file) }
+
         ach_file.reload
         expect(ach_file.status).to eq("completed")
         # expect(ach_file.parsed_data).not_to be_nil
@@ -82,8 +84,8 @@ RSpec.describe AchParsingJob, type: :job do
           modality: :url,
           source: test_url
         )
-        # Mock the web_fetch call within the job
-        allow(URI).to receive(:open).and_return(StringIO.new(valid_nacha_content))
+        # Mock the HTTParty.get call within the job
+        allow(HTTParty).to receive(:get).with(test_url).and_return(double(success?: true, body: valid_nacha_content))
       end
 
       xit "parses the content from URL, updates ach_file status, and creates ach_records" do
@@ -118,6 +120,9 @@ RSpec.describe AchParsingJob, type: :job do
         expect(ach_file.parsed_data).to be_nil
         expect(ach_file.ach_records.count).to eq(0)
         expect(ach_file.error_message).not_to be_nil
+      rescue RSpec::Expectations::ExpectationNotMetError => e
+        puts "\nACH File Error: #{ach_file.error_message}" if ach_file.error_message.present?
+        raise e
       end
     end
   end

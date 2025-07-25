@@ -1,10 +1,11 @@
-require 'nacha'
+require 'httparty'
 
 class AchParsingJob < ApplicationJob
   queue_as :default
 
   def perform(ach_file)
     ach_file.parsing! # Set status to parsing
+
     begin
       ach_input_file = ach_file.ach_input_files.first
       content = case ach_input_file.modality.to_sym
@@ -13,8 +14,8 @@ class AchParsingJob < ApplicationJob
                 when :pasted_text
                   ach_input_file.source
                 when :url
-                  uri = URI.parse(ach_input_file.source)
-                  response = Net::HTTP.get_response(uri)
+                  response = HTTParty.get(ach_input_file.source)
+                  raise "Failed to fetch URL: #{response.code}" unless response.success?
                   response.body
                 else
                   raise "Unsupported modality: #{ach_input_file.modality}"

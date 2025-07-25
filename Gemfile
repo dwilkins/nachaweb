@@ -31,6 +31,7 @@ gem "foreman"
 gem "watchman-rails"
 gem "rt-watchman", :require => "watchman"
 gem "mission_control-jobs"
+gem "httparty"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
