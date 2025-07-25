@@ -27,7 +27,7 @@ Coding conventions for this project are defined in ../CONVENTIONS.md
 ### Phase 3: Web Interface - Core ACH Processing
 *   [X] **3.1.** Implement the web UI for uploading ACH files, pasting text, or providing a URL.
 *   [X] **3.2.** Set up Active Storage for file uploads.
-*   [ ] **3.3.** Create the `AchParsingJob` and integrate it with Solid Queue to handle asynchronous parsing.
+*   [X] **3.3.** Create the `AchParsingJob` and integrate it with Solid Queue to handle asynchronous parsing.
 *   [ ] **3.4.** Implement Action Cable / Solid Cable to provide real-time notifications to the user about the parsing status.
 *   [ ] **3.5.** Implement the temporary file storage logic and the `CleanupTemporaryFilesJob`.
 

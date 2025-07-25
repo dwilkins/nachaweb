@@ -28,6 +28,8 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 gem "foreman"
+gem "watchman-rails"
+gem "rt-watchman", :require => "watchman"
 gem "mission_control-jobs"
 
 # Reduces boot times through caching; required in config/boot.rb
