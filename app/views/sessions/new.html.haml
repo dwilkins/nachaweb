@@ -1,0 +1,16 @@
+%h1 Sign In
+
+= form_with url: session_path, scope: :user, local: true do |form|
+  %div
+    = form.label :email_address
+    = form.email_field :email_address, required: true, autofocus: true
+
+  %div
+    = form.label :password
+    = form.password_field :password, required: true
+
+  %div
+    = form.submit "Sign In"
+
+- if flash[:alert]
+  %p.alert= flash[:alert]

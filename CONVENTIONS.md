@@ -29,8 +29,6 @@
   the rails new call to do this automatically.
 - Use Ruby 3.2+ and Rails 8.0+ practices.
 - Use the Rspec approach for testing, do not use Minitest
-- An app can be built with a devcontainer such as rails new myapp
-  --devcontainer but only do this if requested directly.
 - Rails apps have a lot of directories to consider, such as app, config, db, etc.
 - Adhere to MVC conventions: singular model names (e.g., Product)
   map to plural tables (products); controllers are plural.
