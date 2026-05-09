@@ -1,16 +1,53 @@
-%h1 Sign In
+.flex.flex-col.items-center.mb-8
+  %img{src: "/icon.svg", class: "w-16 h-16 mb-4"}
+  %h1.text-3xl.font-bold.tracking-tight Sign in to Nachaweb
 
-= form_with url: session_path, scope: :user, local: true do |form|
-  %div
-    = form.label :email_address
-    = form.email_field :email_address, required: true, autofocus: true
+.bg-white.p-8.rounded-lg.border.border-gray-200.shadow-sm
+  = form_with url: session_path, scope: :user, local: true, class: "space-y-4" do |form|
+    - if flash[:alert]
+      .p-3.bg-red-50.text-red-600.rounded-md.text-sm.border.border-red-100= flash[:alert]
 
-  %div
-    = form.label :password
-    = form.password_field :password, required: true
+    %div
+      = form.label :email_address, "Email", class: "block text-sm font-semibold mb-1"
+      = form.email_field :email_address, required: true, autofocus: true, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
 
-  %div
-    = form.submit "Sign In"
+    %div
+      .flex.justify-between.items-center.mb-1
+        = form.label :password, class: "text-sm font-semibold"
+        = link_to "Forgot your password?", new_password_path, class: "text-xs text-blue-600 hover:underline"
+      = form.password_field :password, required: true, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
 
-- if flash[:alert]
-  %p.alert= flash[:alert]
+    .flex.items-center
+      = form.check_box :remember_me, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+      = form.label :remember_me, "Remember me", class: "ml-2 block text-sm text-gray-700 cursor-pointer"
+
+    .pt-2
+      = form.submit "Sign in", class: "w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-sm transition-colors cursor-pointer"
+
+    .pt-2
+      %button.w-full.py-2.px-4.border.border-gray-300.bg-white.hover:bg-gray-50.text-gray-700.font-semibold.rounded-md.shadow-sm.flex.items-center.justify-center.gap-2.transition-colors{type: "button"}
+        %svg.w-4.h-4{fill: "currentColor", viewBox: "0 0 24 24"}
+          %path{d: "M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"}
+        Passkey
+
+  .mt-6.text-center.text-sm.text-gray-600
+    %p
+      By signing in you accept the
+      = link_to "Terms of Use", "#", class: "text-blue-600 hover:underline"
+      and acknowledge the
+      = link_to "Privacy Statement and Cookie Policy", "#", class: "text-blue-600 hover:underline"
+
+    .mt-4
+      Don't have an account yet?
+      = link_to "Register now", new_user_path, class: "text-blue-600 hover:underline font-medium"
+
+.mt-8.relative
+  .absolute.inset-0.flex.items-center
+    .w-full.border-t.border-gray-300
+  .relative.flex.justify-center.text-sm
+    %span.px-4.bg-gray-50.text-gray-500 or sign in (one day) with
+
+.mt-6.grid.grid-cols-1.gap-3
+  - ["Google", "GitHub", "Bitbucket", "Salesforce"].each do |provider|
+    %button.w-full.py-2.px-4.border.border-gray-300.bg-white.hover:bg-gray-50.text-gray-700.font-semibold.rounded-md.shadow-sm.flex.items-center.justify-center.transition-colors{type: "button"}
+      %span= provider
