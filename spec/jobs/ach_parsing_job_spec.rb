@@ -85,10 +85,10 @@ RSpec.describe AchParsingJob, type: :job do
           source: test_url
         )
         # Mock the HTTParty.get call within the job
-        allow(HTTParty).to receive(:get).with(test_url).and_return(double(success?: true, body: valid_nacha_content))
+        allow(HTTParty).to receive(:get).with(test_url, timeout: 10).and_return(double(success?: true, body: valid_nacha_content, code: 200))
       end
 
-      xit "parses the content from URL, updates ach_file status, and creates ach_records" do
+      it "parses the content from URL, updates ach_file status, and creates ach_records" do
         perform_enqueued_jobs { AchParsingJob.perform_later(ach_file) }
 
         ach_file.reload
@@ -112,14 +112,14 @@ RSpec.describe AchParsingJob, type: :job do
         )
       end
 
-      xit "updates ach_file status to failed and sets error_message" do
+      it "updates ach_file status to failed and sets error_message" do
         perform_enqueued_jobs { AchParsingJob.perform_later(ach_file) }
 
         ach_file.reload
         expect(ach_file.status).to eq("failed")
         expect(ach_file.parsed_data).to be_nil
         expect(ach_file.ach_records.count).to eq(0)
-        expect(ach_file.error_message).not_to be_nil
+        expect(ach_file.error_message).to eq("Invalid ACH file: No valid records found")
       rescue RSpec::Expectations::ExpectationNotMetError => e
         puts "\nACH File Error: #{ach_file.error_message}" if ach_file.error_message.present?
         raise e

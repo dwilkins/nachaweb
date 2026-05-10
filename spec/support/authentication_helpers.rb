@@ -6,7 +6,7 @@ RSpec.shared_context "authentication helpers" do
     ActionDispatch::TestRequest.create.cookie_jar.tap do |cookie_jar|
       cookie_jar.signed[:session_id] = Current.session.id
       cookies[:session_id] = cookie_jar[:session_id]
-#      cookies[:session_id] = { value: Current.session.id, httponly: true, same_site: :lax }
+      #      cookies[:session_id] = { value: Current.session.id, httponly: true, same_site: :lax }
     end
   end
 

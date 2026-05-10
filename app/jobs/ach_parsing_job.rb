@@ -1,4 +1,4 @@
-require 'httparty'
+require "httparty"
 
 class AchParsingJob < ApplicationJob
   queue_as :default
@@ -9,29 +9,36 @@ class AchParsingJob < ApplicationJob
     begin
       ach_input_file = ach_file.ach_input_files.first
       content = case ach_input_file.modality.to_sym
-                when :file_upload
+      when :file_upload
                   ach_input_file.file_data.download
-                when :pasted_text
+      when :pasted_text
                   ach_input_file.source
-                when :url
-                  response = HTTParty.get(ach_input_file.source)
-                  raise "Failed to fetch URL: #{response.code}" unless response.success?
-                  response.body
-                else
+      when :url
+                  begin
+                    response = HTTParty.get(ach_input_file.source, timeout: 10)
+                    raise "Failed to fetch URL (Status: #{response.code})" unless response.success?
+                    response.body
+                  rescue HTTParty::Error, Net::OpenTimeout, Net::ReadTimeout, SocketError => e
+                    raise "Network error fetching URL: #{e.message}"
+                  end
+      else
                   raise "Unsupported modality: #{ach_input_file.modality}"
-                end
-      ach_records = Nacha.parse(content)
+      end
 
-      ach_file.completed! # Set status to completed
+      ach_records = Nacha.parse(content).compact
+      raise "Invalid ACH file: No valid records found" if ach_records.empty?
+
+      ach_file.parsed_data = ach_records.map(&:to_h)
 
       # Create AchRecord entries
       ach_records.each do |record|
-        new_rec = ach_file.ach_records.create!(
-          ach_record_name: record&.record_type || "Unknown",
+        ach_file.ach_records.create!(
+          ach_record_name: record.record_type || "Unknown",
           parsed_data: record.to_h
         )
       end
 
+      ach_file.completed! # Set status to completed
     rescue StandardError => e
       ach_file.error_message = e.message
       ach_file.failed! # Set status to failed

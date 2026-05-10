@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
-  mount MissionControl::Jobs::Engine, at: "/jobs"
+  require_relative "../app/constraints/admin_constraint"
+  mount MissionControl::Jobs::Engine, at: "/jobs", constraints: AdminConstraint.new
 
   namespace :api do
     namespace :v1 do

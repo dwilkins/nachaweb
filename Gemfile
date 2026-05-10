@@ -29,7 +29,7 @@ gem "solid_queue"
 gem "solid_cable"
 gem "foreman"
 gem "watchman-rails"
-gem "rt-watchman", :require => "watchman"
+gem "rt-watchman", require: "watchman"
 gem "mission_control-jobs"
 gem "httparty"
 
@@ -56,13 +56,13 @@ group :development, :test do
   gem "reek", require: false
 
   # For RSpec
-  gem 'rspec-rails'
+  gem "rspec-rails"
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
 
-gem 'haml-rails'
+gem "haml-rails"
 gem "nacha", ">= 0.1.16"
 # gem "nacha", path: "../nacha"
 gem "tailwindcss-rails"

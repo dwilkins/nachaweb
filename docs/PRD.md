@@ -36,31 +36,30 @@ budding problems.
 *   [X] **3.3.** Create the `AchParsingJob` and integrate it with Solid Queue to handle asynchronous parsing.
 
 ### Phase 4: Refinements & Enhancements
-*   [ ] **4.1.** Ensure API Parsing Endpoints are Implemented and Tested.
+*   [X] **4.1.** Ensure API Parsing Endpoints are Implemented and Tested.
     * The PRD specifies /api/v1/parse/record and /api/v1/parse/file. It's
       crucial to verify that these API endpoints have been implemented and are
       correctly routed to handle parsing requests.
-*   [ ] **4.2.** Implement and Enforce API Key Authentication for API Endpoints.
+*   [X] **4.2.** Implement and Enforce API Key Authentication for API Endpoints.
     * Assuming the API parsing endpoints exist, it's critical to confirm that
       API key authentication is properly applied and enforced for all API
       access, as this is a security-sensitive area.
-*   [ ] **4.3.** Implement Robust HTTP Client for URL Fetching in `AchParsingJob`.
-    * The current URI.open in AchParsingJob for URL fetching is basic.  For
-      production readiness, consider replacing it with a more robust HTTP client
-      (e.g., HTTParty, Faraday) to handle network errors, timeouts, and
-      potentially large file streaming more effectively.
-*   [ ] **4.4.** Implement `AchInputFile#format` Population and Usage.
-    * The PRD defines a format attribute (ach, json, markdown) for
-      AchInputFile. It's important to ensure this attribute is correctly
-      populated and utilized based on the input data's format.
-*   [ ] **4.5.** Implement Granular Error Handling in `AchParsingJob`.
-    * While AchParsingJob has a general error rescue, refining it to catch
-      specific exceptions (e.g., Nacha parsing errors, network errors for URLs)
-      would allow for more precise error logging and user feedback.
-*   [ ] **4.6.** Review and Enforce Role-Based Access Control (RBAC).
-    * Although the User model has a role attribute, a review is needed to
-      confirm that authorization logic is consistently applied across
-      controllers and views to restrict access based on user roles.
+*   [X] **4.3.** Implement Robust HTTP Client for URL Fetching in `AchParsingJob`.
+    * Update `AchParsingJob` to use `HTTParty` with explicit connection and read
+      timeouts (e.g., 5 seconds) to prevent jobs from hanging on unreachable or
+      slow URLs.
+*   [X] **4.4.** Implement `AchInputFile#format` Population and Usage.
+    * Define `enum :format, { ach: 0, json: 1, markdown: 2 }` in `AchInputFile`
+      and update `AchFilesController#create` to correctly populate this
+      attribute during file creation.
+*   [X] **4.5.** Implement Granular Error Handling in `AchParsingJob`.
+    * Refine error handling to catch specific exceptions like `Nacha::ParseError`
+      and `HTTParty::Error` (including timeouts), providing more actionable
+      feedback in `ach_file.error_message`.
+*   [X] **4.6.** Review and Enforce Role-Based Access Control (RBAC).
+    * Restrict access to sensitive routes, such as the background jobs dashboard
+      (`MissionControl::Jobs` at `/jobs`), by implementing an `AdminConstraint`
+      that checks for the user's `admin` role.
 
 ### Phase 5: Advanced Web Features
 *   [ ] **5.1.** Implement Action Cable / Solid Cable to provide real-time notifications to the user about the parsing status.

@@ -4,9 +4,9 @@ class AchFile < ApplicationRecord
   has_many :ach_input_files, dependent: :destroy
   has_many :ach_records, dependent: :destroy
   accepts_nested_attributes_for :ach_input_files
-#  has_many :ach_records, dependent: :destroy
+  #  has_many :ach_records, dependent: :destroy
 
-  enum :status, {parsing: 0, completed: 1, failed: 2 }
+  enum :status, { parsing: 0, completed: 1, failed: 2 }
   enum :storage_type, { temporary: 0, permanent: 1 }
 
   validates :user, presence: true
